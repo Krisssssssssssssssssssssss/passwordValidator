@@ -6,58 +6,73 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
-    //Is it eight characters?
+    // Helper method to create Password instance
+    private Password createPasswordInstance(String pass) {
+        return new Password(pass);
+    }
+
+    // Is it eight characters?
     @Test
     void isItEightExpectTrue() {
-        boolean given = true;
-        boolean expected = Main.isItEight("myNewPassword");
-        assertEquals(given, expected);
+        Password password = createPasswordInstance("myNewPassword");
+        assertTrue(password.isItEight());
     }
+
     @Test
     void isItEightExpectFalse() {
-        boolean given = false;
-        boolean expected = Main.isItEight("passw");
-        assertEquals(given, expected);
+        Password password = createPasswordInstance("passw");
+        assertFalse(password.isItEight());
     }
 
-    //Is digit included?
+    // Is digit included?
     @Test
     void isDigitExpectTrue() {
-        boolean given = true;
-        boolean expected = Main.isDigitIncluded("myNewPassword8");
-        assertEquals(given, expected);
-    }
-    @Test
-    void isDigitExpectFalse() {
-        boolean given = false;
-        boolean expected = Main.isDigitIncluded("passw");
-        assertEquals(given, expected);
-    }
-    //Is Upper and Lower case Included?
-    @Test
-    void isUpperLowerExpectTrue() {
-        boolean given = true;
-        boolean expected = Main.isLowerAndUpper("myNewPassword8");
-        assertEquals(given, expected);
-    }
-    @Test
-    void isUpperLowerExpectFalse() {
-        boolean given = false;
-        boolean expected = Main.isLowerAndUpper("passw");
-        assertEquals(given, expected);
+        Password password = createPasswordInstance("myNewPassword8");
+        assertTrue(password.isDigitIncluded());
     }
 
-    //Is it commonly used one?
+    @Test
+    void isDigitExpectFalse() {
+        Password password = createPasswordInstance("passw");
+        assertFalse(password.isDigitIncluded());
+    }
+
+    // Is Upper and Lower case Included?
+    @Test
+    void isUpperLowerExpectTrue() {
+        Password password = createPasswordInstance("myNewPassword8");
+        assertTrue(password.isLowerAndUpper());
+    }
+
+    @Test
+    void isUpperLowerExpectFalse() {
+        Password password = createPasswordInstance("passw");
+        assertFalse(password.isLowerAndUpper());
+    }
+
+    // Is it commonly used one?
     @Test
     void isCommonlyUsedExpectTrue() {
-        boolean given = true;
-        boolean expected = Main.isCommonlyUsedPasswords("password");
-        assertEquals(given, expected);
+        Password password = createPasswordInstance("password");
+        assertTrue(password.isCommonlyUsedPassword());
     }
+
     @Test
     void isCommonlyUsedExpectFalse() {
-        boolean given = false;
-        boolean expected = Main.isCommonlyUsedPasswords("pasasfsafsw");
-        assertEquals(given, expected);
+        Password password = createPasswordInstance("pasasfsafsw");
+        assertFalse(password.isCommonlyUsedPassword());
+    }
+
+    // Does it contain special Characters?
+    @Test
+    void isSpecialCharacterExpectTrue() {
+        Password password = createPasswordInstance("password!");
+        assertTrue(password.isSpecialCharacter());
+    }
+
+    @Test
+    void isSpecialCharacterExpectFalse() {
+        Password password = createPasswordInstance("pasasfsafsw");
+        assertFalse(password.isSpecialCharacter());
     }
 }
